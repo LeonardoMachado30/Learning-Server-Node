@@ -4,21 +4,18 @@ const path = require('path')
 
 http.createServer((req, res) => {
 
-
     const file = req.url === '/' ? 'index.html' : req.url
+    const filePath = path.join(__dirname, 'public', file)
 
-    console.log(file)
-    // if(req.url === '/'){
-    //     fs.readFile(
-    //         path.join(__dirname, 'public', 'index.html'), 
-    //         (err, content) => {
-    //             if(err) throw err
+    fs.readFile(
+        filePath,
+        (err, content) => {
+            if (err) throw err
 
-    //             res.end(content)
-    //         }
-    //     )
-    // }
+            res.end(content)
+        }
+    )
 
-    if(req.url == '/contato')
+    if (req.url == '/contato')
         return res.end('<h1>Contato</h1>')
 }).listen(5000, () => console.log('listening on port'))
